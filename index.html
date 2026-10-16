@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reach — Solana memecoin terminal</title>
+<meta name="description" content="Reach is a discovery and research terminal for Solana memecoins: new pairs, on-chain signals and a watchlist. Concept demo with fictional data.">
+<meta name="theme-color" content="#060807">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Crect width='26' height='26' rx='6' fill='%23060807'/%3E%3Ccircle cx='13' cy='13' r='7' fill='none' stroke='%237ef2b8' stroke-width='1.6'/%3E%3Crect x='11' y='11' width='4' height='4' fill='%23b8ff3c'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,600..900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="rch crt" id="app">
+<a class="skip" href="#discover">Skip to the token board</a>
+
+<header class="top">
+ <div class="top-in">
+  <a class="brand" href="#top" aria-label="Reach — back to top">
+   <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="1" width="24" height="24" rx="6" fill="none" stroke="#2a382d"/><circle cx="13" cy="13" r="7" fill="none" stroke="#7ef2b8" stroke-width="1.5"/><path d="M13 3v4M13 19v4M3 13h4M19 13h4" stroke="#8e9b6c" stroke-width="1.5"/><rect x="11" y="11" width="4" height="4" fill="#b8ff3c"/></svg>
+   <span class="word">reach</span><span class="cur" aria-hidden="true"></span>
+  </a>
+  <div class="status"><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>DEMO FEED · SIMULATED</span></div>
+  <form class="tsearch" role="search" id="topForm">
+   <label class="sr" for="tq">Search tokens by name, ticker or mint address</label>
+   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+   <input id="tq" placeholder="Search name, $ticker or mint" autocomplete="off" spellcheck="false" aria-controls="topDrop" aria-expanded="false">
+   <span class="kbd" id="kbd" aria-hidden="true">Ctrl K</span>
+   <div class="tdrop" id="topDrop" hidden></div>
+  </form>
+  <a class="btn primary sm" href="#terminal">Launch terminal</a>
+  <button class="menu" type="button" id="menuBtn" aria-expanded="false" aria-controls="mnav" aria-label="Menu">
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+  </button>
+ </div>
+ <nav id="mnav" class="nav" aria-label="Primary">
+  <a href="#discover" data-act="navclose">Discover</a>
+  <a href="#discover" class="hot" data-act="navtab" data-tab="trending">↗ Trending</a>
+  <a href="#discover" data-act="navtab" data-tab="new">New pairs</a>
+  <a href="#watchlist" data-act="navclose">Watchlist</a>
+  <span class="sep" aria-hidden="true"></span>
+  <a href="#signals" data-act="navclose">Signals</a>
+  <a href="#terminal" data-act="navclose">Terminal</a>
+  <a href="#how" data-act="navclose">How it works</a>
+  <a href="#faq" data-act="navclose">FAQ</a>
+ </nav>
+</header>
+
+<main id="top">
+<section class="hero wrap" aria-labelledby="h-title">
+ <div class="frame">
+  <div class="h-left">
+   <p class="code">RCH-01 // reach.</p>
+   <p class="kick">MEMECOIN TERMINAL <span>SOLANA · DEMO BUILD · v0.9</span></p>
+   <h1 id="h-title" class="disp h1">Read the chain before you chase the <em>candle.</em></h1>
+   <p class="lede">Reach is a discovery terminal for Solana memecoins: new pairs as they appear, the on-chain signals worth a second look, and a watchlist that keeps up.</p>
+   <form class="cmd" id="heroForm">
+    <label class="sr" for="hq">Token name, ticker or Solana mint address</label>
+    <span class="pr" aria-hidden="true">&gt;</span>
+    <input id="hq" placeholder="$BFROG, “glitch goose” or a mint address" autocomplete="off" spellcheck="false">
+    <button class="btn primary sm" type="submit">Scan</button>
+   </form>
+   <div class="chips" id="heroChips" aria-label="Try an example"></div>
+   <div class="hout" id="hout" aria-live="polite"></div>
+   <div class="h-ctas">
+    <a class="btn primary" href="#discover">Explore tokens</a>
+    <a class="btn" href="#how">How it works</a>
+   </div>
+  </div>
+  <div class="h-right">
+   <dl class="meta">
+    <div><dt>Mode</dt><dd>Discovery<small>read-only · no wallet</small></dd></div>
+    <div><dt>Feed</dt><dd>Demo data<small>simulated, not live</small></dd></div>
+    <div><dt>Index</dt><dd>16 tokens<small>fictional samples</small></dd></div>
+    <div><dt>Chain</dt><dd>Solana<small>mainnet-beta (display)</small></dd></div>
+   </dl>
+   <div class="fig" role="img" aria-label="Animated ASCII field showing simulated new-pair activity, with a pixel-art scout robot">
+    <span class="fig-l fig-tl">FIG.01 // PAIR WEATHER</span>
+    <span class="fig-l fig-tr">SIMULATED</span>
+    <span class="tick a"></span><span class="tick b"></span><span class="tick c"></span><span class="tick d"></span>
+    <div class="ascii" id="ascii" aria-hidden="true"></div>
+    <span class="fig-l fig-bl">new pairs / min ≈ <span id="ppm">38</span> · demo signal</span>
+    <div class="scout" aria-hidden="true">
+     <div class="scout-h"><span>FIG.02 // SCOUT</span><span>LOOP</span></div>
+     <div class="scout-stage">
+      <span class="ping"></span><span class="ping p2"></span>
+      <div class="spr"><div class="fr" id="sprA"></div><div class="fr f2" id="sprB"></div></div>
+     </div>
+     <p>scout.gif — pure CSS, no assets</p>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="strip" aria-label="Market strip, demo values">
+  <div class="st"><div class="k">SOL / USD <span class="demo">DEMO</span></div><div class="v"><span id="solPx">$162.40</span> <small id="solCh" class="up">+2.31%</small></div><div class="s">sample value, not a quote</div></div>
+  <div class="st"><div class="k">Active pairs</div><div class="v" id="pairs">31,208</div><div class="s">traded in the last 24h · demo</div></div>
+  <div class="st"><div class="k">24h DEX volume</div><div class="v" id="vol">$1.84B</div><div class="s">across sample pools · demo</div></div>
+  <div class="st"><div class="k"><span class="dot" aria-hidden="true"></span>Network</div><div class="v">Simulated</div><div class="s">slot <span id="slot">418,204,117</span></div></div>
+  <div class="st"><div class="k">Data</div><div class="v">Not live</div><div class="s">tick <span id="ago">0</span>s ago · local <span id="clock">--:--:--</span></div></div>
+ </div>
+ <div class="tape" aria-label="Scrolling ticker of demo tokens"><div class="tape-in" id="tape"></div></div>
+</section>
+
+<section id="discover" class="wrap sec" aria-labelledby="d-title">
+ <div class="sec-h">
+  <div><p class="label">Section 01 // Discover</p><h2 id="d-title" class="disp">The board, sorted your way.</h2></div>
+  <p class="sub">Switch views, sort any column, filter by what matters to you and star tokens into your watchlist. Every row here is a fictional sample with simulated numbers.</p>
+ </div>
+ <div class="board">
+  <div class="panel">
+   <div class="b-tools">
+    <div class="tabs" role="tablist" aria-label="Board views" id="tabs"></div>
+    <div class="filters">
+     <label class="fin"><span class="sr">Filter tokens</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7e8c80" stroke-width="2" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg><input id="filter" placeholder="filter name/$ticker"></label>
+     <span id="fchips" class="filters"></span>
+    </div>
+   </div>
+   <div id="board-panel" class="tblwrap" role="tabpanel">
+    <div class="grid-t" role="table" aria-label="Demo token board">
+     <div class="tr hd" role="row" id="thead"></div>
+     <div role="rowgroup" id="tbody"></div>
+    </div>
+    <div class="empty" id="empty" hidden>
+     <pre aria-hidden="true">  _____
+ | ? ? |
+ |  ~  |  no rows
+ '-----'</pre>
+     <p style="margin:0">Nothing on this view matches your filters.</p>
+     <button class="btn sm" type="button" data-act="reset">Reset filters</button>
+    </div>
+   </div>
+   <div class="b-foot" id="bfoot"></div>
+  </div>
+
+  <aside class="b-side" aria-label="Selected token and watchlist">
+   <div class="panel card" id="selCard"></div>
+   <div id="watchlist" class="panel card" style="scroll-margin-top:110px">
+    <div class="card-h"><span>Watchlist · session</span><span id="wcount"></span></div>
+    <div id="wbody"></div>
+   </div>
+  </aside>
+ </div>
+</section>
+
+<section class="mani" aria-label="Principle">
+ <p class="m1">// anyone can mint a ticker</p>
+ <p class="m2">the mint address is the only name</p>
+ <p class="m3">that can’t be copied</p>
+ <p class="m4"><span>reach.</span> reads it first. you decide. //</p>
+</section>
+
+<section id="signals" class="wrap sec" aria-labelledby="s-title">
+ <div class="sec-h">
+  <div><p class="label">Section 02 // Signals</p><h2 id="s-title" class="disp">Signals, not guarantees.</h2></div>
+  <p class="sub">Automated checks read what the chain can show: pool depth, who holds the supply, which authorities are still live. They flag things to look at. They never mark a token as safe.</p>
+ </div>
+ <div class="panel sig">
+  <div class="sig-head">
+   <div class="sig-who" id="sigWho"></div>
+   <label class="sel-wrap">Inspect token <select id="sigSelect"></select></label>
+   <div class="ca">
+    <span class="lbl">Mint address · example</span>
+    <code id="mint"></code>
+    <button class="btn sm" type="button" data-act="copy" id="copyBtn">Copy</button>
+    <a class="ext" id="solscan" href="#" target="_blank" rel="noopener noreferrer">Solscan ↗</a>
+    <a class="ext" id="explorer" href="#" target="_blank" rel="noopener noreferrer">Solana Explorer ↗</a>
+    <span class="note">Fictional example address (ends in “demo”) — explorer links show the pattern but will not resolve to a real token.</span>
+   </div>
+  </div>
+  <div class="sig-body">
+   <ul class="sig-list" id="sigList" aria-label="Signal readout"></ul>
+   <div class="sig-side">
+    <div class="tally" id="tally" aria-label="Signal tally"></div>
+    <p class="legend"><b style="color:#7ef2b8">Clear</b> means nothing unusual showed up in that one check. <b style="color:#f3cd52">Watch</b> means it deserves a closer read. <b style="color:#ff7d5c">Flag</b> means the chain shows something that commonly precedes losses. None of these is a verdict.</p>
+    <div class="warnbox">
+     <div class="tapebar" aria-hidden="true"></div>
+     <div class="in">
+      <h4><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3 2 21h20zM12 10v5M12 18v.5"/></svg>What checks can’t see</h4>
+      <ul>
+       <li>Wallets that look independent but are run by one person.</li>
+       <li>Off-chain promises, fake partnerships, paid hype.</li>
+       <li>Token-2022 extensions like transfer fees or hooks need a manual read.</li>
+       <li>Anything that changes after the snapshot — holders sell, pools move.</li>
+       <li>Clear signals can’t stop a token from going to zero.</li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="terminal" class="wrap sec" aria-labelledby="t-title">
+ <div class="sec-h">
+  <div><p class="label">Section 03 // Terminal</p><h2 id="t-title" class="disp">Talk to the board.</h2></div>
+  <p class="sub">A small shell over the demo index. Try <code style="color:#b8ff3c">help</code>, <code style="color:#b8ff3c">trending</code> or <code style="color:#b8ff3c">scan $CLAM</code>. Up and down arrows recall history.</p>
+ </div>
+ <div class="term-grid">
+  <div class="panel term">
+   <div class="tbar"><span class="sq" aria-hidden="true"><i></i><i></i><i></i></span><span>reach — demo shell — 80×24</span><span class="stt"><span class="dot" aria-hidden="true"></span><span id="termStatus">ready</span></span></div>
+   <div class="tout" id="tout" tabindex="0" aria-label="Terminal output"></div>
+   <div class="sr" role="status" aria-live="polite" id="announce"></div>
+   <div class="tchips" id="tchips" aria-label="Quick commands"></div>
+   <form class="tform" id="termForm">
+    <label class="pr" for="tin">reach@sol ~ %</label>
+    <input id="tin" placeholder="type a command…" autocomplete="off" spellcheck="false">
+    <button class="btn sm" type="submit">Run</button>
+   </form>
+  </div>
+  <div class="panel pulse">
+   <div class="card-h" style="margin:0"><span>Daily pulse</span><span>decorative</span></div>
+   <div class="badge" id="badge" aria-live="polite"></div>
+   <div>
+    <div class="wave" id="wave" aria-hidden="true"></div>
+    <div class="mood" style="margin-top:8px"><span>network mood (simulated)</span><b id="mood"></b></div>
+   </div>
+   <button class="btn primary" type="button" data-act="roll" id="rollBtn">Pull a new pulse</button>
+   <p class="fine">A collectible-style badge, just for fun. Not an NFT, not tradable, worth nothing, and not a market signal.</p>
+  </div>
+ </div>
+</section>
+
+<section id="how" class="wrap sec" aria-labelledby="w-title">
+ <div class="sec-h">
+  <div><p class="label">Section 04 // How it works</p><h2 id="w-title" class="disp">Four reads, one habit.</h2></div>
+  <p class="sub">Reach starts from the chain, not the chatter. The loop is the same for every token: find it, read it, compare it, keep an eye on it.</p>
+ </div>
+ <ol class="steps">
+  <li class="step"><span class="n">01</span><h3>Discover</h3><p>New pairs, trending boards and movers in one sortable view. Search by name, $ticker or the full mint.</p><pre>&gt; board --tab new
+<b>✓ 8 pairs under 24h</b>
+  sorted by age ↑</pre><span class="arrow" aria-hidden="true">→</span></li>
+  <li class="step"><span class="n">02</span><h3>Inspect</h3><p>Open the mint and read the signals: liquidity, holder spread, mint and freeze authority, LP status, pair age.</p><pre>&gt; scan $BFROG
+<b>4 clear · 3 watch · 0 flag</b>
+  not a verdict</pre><span class="arrow" aria-hidden="true">→</span></li>
+  <li class="step"><span class="n">03</span><h3>Compare</h3><p>Line it up against its neighbours: volume vs. depth, cap vs. pool, how fast it moved and who is still holding.</p><pre>&gt; compare BFROG RAMEN
+<b>liq/mcap 11.8% · 12.9%</b>
+  top10 41% · 44%</pre><span class="arrow" aria-hidden="true">→</span></li>
+  <li class="step"><span class="n">04</span><h3>Watch</h3><p>Star it. Your watchlist keeps the shortlist in view so you can come back to it later.</p><pre>&gt; watch $BFROG
+<b>★ added · 3 watching</b>
+  session only</pre></li>
+ </ol>
+ <div class="flow" aria-hidden="true"><span>chain</span><i></i><span>index</span><i></i><span>signals</span><i></i><span>board</span><i></i><span>you decide</span></div>
+</section>
+
+<section id="faq" class="wrap sec" aria-labelledby="f-title">
+ <div class="sec-h">
+  <div><p class="label">Section 05 // FAQ</p><h2 id="f-title" class="disp">Questions.</h2></div>
+  <p class="sub">Short answers. If something here sounds like a promise, it isn’t one.</p>
+ </div>
+ <div class="faq" id="faqList"></div>
+</section>
+
+<section class="wrap" aria-labelledby="c-title">
+ <div class="cta">
+  <div class="cta-dots" aria-hidden="true"></div>
+  <p class="label" style="position:relative">// end of transmission</p>
+  <h2 id="c-title" class="disp" style="margin-top:14px">Look closer <em>before</em> you ape.</h2>
+  <p>Search a mint, open the board, or run a scan. Reach shows you the chain. The call stays yours.</p>
+  <div class="h-ctas">
+   <a class="btn primary" href="#terminal">Launch terminal</a>
+   <a class="btn" href="#discover">Explore tokens</a>
+  </div>
+  <p class="disc">Reach is an analytics and discovery tool. It does not trade, hold funds or give financial advice. Memecoins are highly speculative and can lose all of their value quickly. Signals are automated observations, not audits, endorsements or guarantees. Every token, price and metric on this page is fictional demo data.</p>
+ </div>
+</section>
+</main>
+
+<footer class="ft wrap">
+ <div class="ft-in">
+  <span>reach. — Solana memecoin terminal · concept demo · 2026</span>
+  <nav aria-label="Footer"><a href="#discover">Discover</a><a href="#signals">Signals</a><a href="#terminal">Terminal</a><a href="#how">How it works</a><a href="#faq">FAQ</a></nav>
+  <span>Not affiliated with the Solana Foundation or any exchange.</span>
+ </div>
+</footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
